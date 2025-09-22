@@ -22,3 +22,22 @@ Logging and reporting are minimal to reduce fingerprints. UNILOADER only tells y
 > "Ted K probably would’ve preferred carrier pigeons… or maybe a dead drop under a rock."
 
 > "Remember: the mailman may come twice, but UNILOADER only knocks once."
+
+## ⚠️ Legal Disclaimer & Usage Guidance
+
+**Uniloader** is an open-source project intended **solely for educational, research, and demonstration purposes**. It is designed to be deployed on **serverless platforms (e.g., Cloudflare Workers, IPFS) for deniability and operational security discipline**. This project is inspired by old-school Rig EK techniques, but it is strictly **safe and legal**.
+
+By using this software, you agree to the following:
+
+- **No Malicious Use:** Uniloader **must not be used to compromise, exploit, or access any system, network, or device without explicit authorization**. Unauthorized use may violate local, national, and international laws.
+
+- **Educational & Safe Use Only:** This tool demonstrates **client-side environment detection and file delivery techniques**. All experiments should be conducted on systems you own or have explicit permission to test.
+
+- **No Liability:** The authors and contributors of Uniloader **assume no responsibility** for any damages, data loss, or legal consequences resulting from the use of this software. Use at your own risk.
+
+- **Compliance:** Users are responsible for ensuring their use of Uniloader **complies with all applicable laws, regulations, and institutional policies**.
+
+> **Summary:** Uniloader is an educational tool, **designed for safe serverless deployment and inspired by old-school Rig EK methods**. **Any misuse for unauthorized access, malware deployment, or cybercrime is strictly prohibited.**
+
+Sent from my iPhone
+

